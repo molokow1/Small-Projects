@@ -4,18 +4,18 @@ import math
 from pyglet.window import key
 
 
-class gameLabel(pyglet.text.Label):
+class GameLabel(pyglet.text.Label):
     """docstring for gameLabel"""
-    def __init__(self, str, Xpos,Ypos):
-        super(gameLabel, self).__init__()
+    def __init__(self, str, x, y, font_size=30):
+        super(GameLabel, self).__init__()
         self.text = str
         self.font_name = 'Menlo'
-        self.x = Xpos
-        self.y = Ypos
+        self.x = x
+        self.y = y
         self.anchor_x = 'center'
         self.anchor_y = 'center'
+        self.font_size = font_size
 
-        
 
 class MainApp(object):
     """docstring for main_app"""
@@ -27,15 +27,10 @@ class MainApp(object):
         self.current_item = self.item_timer.get_new_item()
         self.window.set_mouse_visible(True)
         self.waitForInput = True
-        self.testLabel = gameLabel("TEST",100,100)
-        self.name_label = pyglet.text.Label(str(self.current_item.type), font_name='Menlo',
-                                            font_size=36,
-                                            x=self.window.width // 2, y=60,
-                                            anchor_x='center', anchor_y='center')
-        self.time_label = pyglet.text.Label('Time: ' + str(self.current_item.time), font_name='Menlo',
-                                            font_size=30,
-                                            x=self.window.width // 2, y=100,
-                                            anchor_x='center', anchor_y='center')
+        self.name_label = GameLabel(str(self.current_item.type),x=self.window.width//2, y=60)
+
+        self.time_label = GameLabel('Time: ' + str(self.current_item.time),
+                                            x=self.window.width // 2, y=100)
         self.ans_label = pyglet.text.Label(str(self.current_item.answer), font_name='Menlo',
                                            font_size=30,
                                            x=self.window.width // 2, y=140,
@@ -64,7 +59,6 @@ class MainApp(object):
             self.input_label.draw()
             self.status_label.draw()
             self.title_label.draw()
-            self.testLabel.draw()
 
         @self.window.event
         def on_key_press(symbol, modifiers):
